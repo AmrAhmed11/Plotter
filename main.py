@@ -109,6 +109,7 @@ class Ui_Plotter(object):
     def retranslateUi(self, Plotter):
         _translate = QtCore.QCoreApplication.translate
         Plotter.setWindowTitle(_translate("Plotter", "Plotter"))
+        Plotter.setWindowIcon(QtGui.QIcon('logo.png'))
         self.label.setText(_translate("Plotter", "Enter Function"))
         self.label_3.setText(_translate("Plotter", "Min x"))
         self.label_2.setText(_translate("Plotter", "Max x"))
