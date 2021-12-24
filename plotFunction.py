@@ -4,6 +4,7 @@ from PyQt5 import QtGui
 from matplotlib.backends.backend_qt5agg import FigureCanvas
 from matplotlib.figure import Figure
 
+#matplotlib class
 class MPL(QWidget):
     
     def __init__(self, parent = None):
@@ -18,19 +19,23 @@ class MPL(QWidget):
         self.canvas.axes = self.canvas.figure.add_subplot(111)
         self.setLayout(vertical_layout)
 
+# plotting function
 def plot(functionEdit,maxEdit,minEdit,MPL ):
 
+    #taking the input from the fields
     y = functionEdit.text()
     y=y.replace("^","**")
-
     maxX = float(maxEdit.text())
     minX = float(minEdit.text())
-    
+
+    #creating array of numbers from min to max
     x = np.linspace(minX, maxX, 1000)
 
+    #catching math errors from inputed equation
     try:
         y=eval(y)
     except Exception:
+        #Error message
         error_dialog = QMessageBox()
         error_dialog.setIcon(QMessageBox.Critical)
         error_dialog.setWindowTitle("Error")
@@ -39,22 +44,27 @@ def plot(functionEdit,maxEdit,minEdit,MPL ):
         error_dialog.exec_()
         return
 
+    #manually creating y array for constant equations
     if("x" not in functionEdit.text()):
         y=np.full(1000,y)
 
-
+    #clearing old plot and ploting new equation
     MPL.canvas.axes.clear()
     MPL.canvas.axes.plot(x, y)
     MPL.canvas.draw()
 
+#validating fields
 def validate(functionEdit,maxEdit,minEdit):
+    #setting up the error message
     error_dialog = QMessageBox()
     error_dialog.setIcon(QMessageBox.Critical)
     error_dialog.setWindowTitle("Error")
     error_dialog.setWindowIcon(QtGui.QIcon('logo.png'))
 
+    
     y = functionEdit.text()
 
+    #catching errors in min and max fields
     try:
         minX = float(minEdit.text())
     except:
@@ -72,16 +82,6 @@ def validate(functionEdit,maxEdit,minEdit):
      # handle empty function field
     if len(y) == 0 or y.isspace():
         error_dialog.setText('Function field is empty!')
-        error_dialog.exec_()
-        return 0
-    # handle empty minimum field
-    elif len(minEdit.text()) == 0:
-        error_dialog.setText('Minimum x field is empty!')
-        error_dialog.exec_()
-        return 0
-    # handle empty maximum field
-    elif len(maxEdit.text()) == 0:
-        error_dialog.setText('Maximum x field is empty!')
         error_dialog.exec_()
         return 0
     # handle max x is bigger or equal to min x
