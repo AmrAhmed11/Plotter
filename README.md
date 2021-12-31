@@ -1,2 +1,6 @@
 # Plotter
- simple GUI to plot equation inputed by the user 
+ simple GUI to plot equation inputed by the user.
+ 
+---
+## samples
+ 
