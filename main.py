@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from plotFunction import plot,validate,MPL
+from plotFunction import plot,validate,clearPLot,MPL
 
 
 # Generated code by QtDesigner Tool
@@ -93,8 +93,9 @@ class Ui_Plotter(object):
 
     #Plot Button Pressed Function
     def pressed(self):
+        clearPLot(self.MPL)
         #validating the fields before ploting
-        valid = validate(self.functionEdit,self.maxEdit,self.minEdit)
+        valid = validate(self.functionEdit.text(),self.maxEdit.text(),self.minEdit.text())
         if(valid==1):
             #ploting the equation
             plot(self.functionEdit,self.maxEdit,self.minEdit,self.MPL)

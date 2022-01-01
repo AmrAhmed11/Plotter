@@ -19,6 +19,10 @@ class MPL(QWidget):
         self.canvas.axes = self.canvas.figure.add_subplot(111)
         self.setLayout(vertical_layout)
 
+
+def clearPLot(MPL):
+    MPL.canvas.axes.clear()
+    MPL.canvas.draw()
 # plotting function
 def plot(functionEdit,maxEdit,minEdit,MPL ):
 
@@ -62,20 +66,26 @@ def validate(functionEdit,maxEdit,minEdit):
     error_dialog.setWindowIcon(QtGui.QIcon('logo.png'))
 
     
-    y = functionEdit.text()
+    y = functionEdit
 
     #catching errors in min and max fields
     try:
-        minX = float(minEdit.text())
+        minX = float(minEdit)
     except:
-        error_dialog.setText('Min x entry is invalid!')
+        if(not minEdit):
+            error_dialog.setText('Enter Min value')
+        else :
+            error_dialog.setText('Min x entry is invalid!')
         error_dialog.exec_()
         return 0
 
     try:
-        maxX = float(maxEdit.text())
+        maxX = float(maxEdit)
     except:
-        error_dialog.setText('Max x entry is invalid!')
+        if(not maxEdit):
+            error_dialog.setText('Enter Max value')
+        else :
+            error_dialog.setText('Max x entry is invalid!')
         error_dialog.exec_()
         return 0        
     
